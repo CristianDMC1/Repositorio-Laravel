@@ -5,7 +5,7 @@
 @section('contenido')
     <br>
     <h3>Crear un nuevo producto</h3>
-    <form action="{{route('productos.store')}}" method="post">
+    <form action="{{route('productos.store')}}" method="post" enctype="multipart/form-data">
       @csrf
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre del Producto</label>
@@ -31,6 +31,13 @@
         <label for="cantidad" class="form-label">Cantidad del Producto</label>
         <input type="text" class="form-control" id="cantidad" name="cantidad">
     </div>
+
+    <div class="mb-3">
+        <label for="imagen" class="form-label">Cargar Imagen</label>
+        <br>
+        <input type="file" class="form-control" id="imagen" name="imagen">
+    </div>
+
 
     <button type="submit" class="btn btn-dark">Guardar</button>
   </form>

@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('descripcion', 100);
             $table->string('precio', 100); // Añadir campo para precio
             $table->string('cantidad', 100); // Añadir campo para cantidad
+            $table->string('imagen');
 
         });
     }
-
+// se hicieron las migraciones de las tablas , 2 en total
     /**
      * Reverse the migrations.
      */

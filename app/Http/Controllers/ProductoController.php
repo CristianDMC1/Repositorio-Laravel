@@ -37,17 +37,22 @@ class ProductoController extends Controller
         $course -> descripcion = $request -> input('descripcion');
         $course -> precio = $request -> input('precio');
         $course -> cantidad = $request -> input('cantidad');
-        $course -> save ();
-        return redirect()->route('productos.create')->with('success', 'Guardado Exitoso');
-     }
+        if ($request -> hasFile('imagen')){
+             $course ->imagen = $request -> file('imagen')-> store('public/productos');
+             $course -> save ();
+        }
 
+        return redirect()->route('productos.create')->with('success', 'Producto Guardado Exitosamente');
+     }
+// se hicieron los 5 campos solicitados
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $course = Producto::find($id);
+        return view ('productos.show', compact ('course'));
     }
 
     /**
@@ -55,7 +60,8 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $course = Producto::find($id);
+        return view('productos.edit',compact('course'));
     }
 
     /**
@@ -63,7 +69,16 @@ class ProductoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $course = Producto::find($id);
+        $course->fill($request->except('imagen'));
+        if ($request->hasFile('imagen')){
+            $course->imagen = $request->file('imagen')->store('public/productos');
+
+            $course->save();
+            return redirect()->route('productos.create')->with('success', 'Producto Actualizado Exitosamente');
+
+        }
+
     }
 
     /**
